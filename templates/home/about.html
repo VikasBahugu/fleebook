@@ -1,0 +1,63 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{%block current_about%}current{%endblock current_about%}
+{% block body %}
+    <!-- s-content
+    ================================================== -->
+    <section class="s-content s-content--top-padding s-content--narrow">
+
+        <div class="row narrow">
+            <div class="col-full s-content__header">
+                <h1 class="display-1 display-1--with-line-sep">About Fleebook. </h1>
+                <p class="lead">
+               We provide high quality service so that you can make enjoy of those moments which matters to your life.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-full s-content__main">
+                <p>
+                <img src="{% static 'images/thumbs/about/about-1000.jpg' %}">
+                </p>
+
+                <h2>This Is Our Story</h2>
+
+                <p>
+
+                
+                <p>
+                We work hard so that you can enjoy some moments of your life and stay connected to your closed ones. We help to bring apart closer to your heart.
+We would love to hear from you.
+                </p>
+
+                <hr>
+
+                <div class="row block-1-2 block-tab-full">
+                    <div class="col-block">
+                        <h4 class="quarter-top-margin">Who We Are.</h4>
+                        <p>We are just a small company that provides platform to writers out there.</p>
+                    </div>
+
+                    <div class="col-block">
+                        <h4 class="quarter-top-margin">Our Mission.</h4>
+                        <p>Your satisfaction is our prior mission.</p>
+                    </div>
+
+                    <div class="col-block">
+                        <h4 class="quarter-top-margin">Our Vision.</h4>
+                        <p>We look forward to make it as comfortable as possible to use.</p>
+                    </div>
+
+                    <div class="col-block">
+                        <h4 class="quarter-top-margin">Our Core Values.</h4>
+                        <p>We value in hard work and prosperity to think ahead.</p>
+                    </div>
+
+                </div>
+
+            </div> <!-- s-content__main -->
+        </div> <!-- end row -->
+
+    </section> <!-- end s-content -->
+
+{% endblock body %}

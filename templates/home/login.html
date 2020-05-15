@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login V12</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/mains.css' %}">
+
+	<style>
+        body{
+        background:lightblue;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="limiter">
+    <div class="container-login100" style="background-image: url('{% static 'images/img-01.jpg' %}');">
+        <div class="wrap-login100 p-t-50 p-b-30">
+
+                <div class="login100-form-avatar">
+                   <a href="{% url 'homepage' %}" class="txt1">
+                 <img src="{% static 'images/thumbs/about/about-500.jpg' %}" alt="AVATAR">
+				   </a>
+                </div>
+			<div class="text-center w-full" style="margin-top:-50px">
+                <a href="{% url 'homepage' %}" class="txt1" style="font-size:27px">
+                    Home
+                </a>
+            </div>
+
+                <span class="login100-form-title p-t-20 p-b-45" style="font-size:28px">
+						fleebook.com
+					</span>
+            <form method="post" action="{% url 'login' %}" class="login100-form validate-form">
+                {% csrf_token %}
+
+                <div class="wrap-input100 validate-input m-b-10" data-validate="Username is required">
+                    <input class="input100" type="text" style="font-size:32px" required name="username" placeholder="Username">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+							<i class="fa fa-user"></i>
+						</span>
+                </div>
+
+                <div class="wrap-input100 validate-input m-b-10" data-validate="Password is required">
+                    <input class="input100" type="password" style="font-size:32px" required name="passw" placeholder="Password">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+							<i class="fa fa-lock"></i>
+						</span>
+                </div>
+
+                <div class="container-login100-form-btn p-t-10">
+                    <button class="login100-form-btn" style="font-size:30px">
+                        Let me in
+                    </button>
+                </div>
+            </form>
+
+            <div class="text-center w-full p-t-25 p-b-230">
+                <a href="#" class="txt1" style="font-size:26px">
+                    Forgot Username / Password?
+                </a>
+            </div>
+
+            <div class="text-center w-full" style="margin-top:-150px; ">
+                <a class="txt1" href="{% url 'signup' %}" style="font-size:32px">
+                    Create new account
+                    <i class="fa fa-long-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<script src={% static
+'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+	<script src={% static 'vendor/bootstrap/js/popper.js' %}"></script>
+<script src={% static
+'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+	<script src={% static 'vendor/select2/select2.min.js' %}"></script>
+<script src={% static
+'js/mains.js' %}"></script>
+
+</body>
+</html>

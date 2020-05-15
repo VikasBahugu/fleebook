@@ -1,0 +1,72 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{%block current_post%}current{%endblock current_post%}
+{% block style%}
+
+#respond{
+font-size: 23px;
+margin-top: -62px;
+}
+
+.full-width{
+font-size: 21px;
+}
+
+{% endblock %}
+{% block body %}
+    <section class="s-content s-content--top-padding s-content--narrow">
+
+        <div class="row narrow">
+            <div class="col-full s-content__header">
+
+{% if user.is_authenticated %}
+            <form enctype="multipart/form-data" method="post" action="{% url 'createPosts' %}">
+                {% csrf_token %}
+
+                <div class="form-field">
+                    <input type="text" class="full-width" required style="font-size:19px" placeholder="Title*"
+                           name="title">
+                </div>
+
+                <div class="form-field">
+                    <input type="text" class="full-width" required style="font-size:19px" name="category"
+                           placeholder="Category*">
+                </div>
+
+                <div class="form-field">
+                    <textarea name="message" style="font-size:19px" required placeholder="Enter your post here*"
+                              class="full-width"></textarea>
+                </div>
+
+                <div class="form-field my-4">
+                      <input type='file' required name="photo" onchange="readURL(this);" />
+                      <img id="userpost" alt="Select an image" src="#"/>
+<!--                    <input type="file" class="full-width" required name="photo">-->
+                </div>
+
+                <input type="submit" value="Post to public" style="font-size:18px"
+                       class="btn btn--primary btn-wide btn--large full-width">
+            </form>
+{% else %}
+                    <div style="margin-left:12px"><h2 style="">To create post you must be logged in! <a href="{% url 'login' %}">Log in here</a> </h2></div>
+                    <h3 class="ml-5">Or you can read articles <a href="{% url 'homepage' %}">here</a>.</h3>
+
+{% endif %}
+            </div></div></section>
+<script>
+         function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#userpost')
+                        .attr('src', e.target.result)
+                        .width(250)
+                        .height(300);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+</script>
+{% endblock body %}

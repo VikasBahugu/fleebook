@@ -1,0 +1,307 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{%block current_setting%}current{%endblock current_setting%}
+{% load humanize %}
+
+
+{% block style %}
+body {
+<!--padding-top: 30px;-->
+<!--padding-botton: 40px;-->
+margin:0;
+}
+<!--.othertop {-->
+<!--margin-top:-80px;-->
+<!--}-->
+.messages{
+<!--margin-bottom: -20px;-->
+}
+
+{% endblock style %}
+
+{% block body %}
+
+{% for message in messages %}
+<div class=" alert alert-{{ message.tags }} alert-dismissible"
+     style=" padding:7px; top:8rem;font-size:20px; border-radius:1rem;">
+    <button type="button" style="top:-1.2rem" class="close" data-dismiss="alert">X</button>
+    <strong class="text-{{ message.tags }}">Message: </strong> {{ message }}
+</div>
+{% endfor %}
+
+<section class="s-content s-content--top-padding s-content--narrow" style="margin-left:42px">
+
+
+    <div class="messages">
+        <div class="row narrow">
+            <div class="col-full s-content__header">
+                <h1>Complete your profile here.</h1>
+                <span class="m-4">Updated profile ({{from_profile.timestamp|naturaltime}})</span>
+            </div>
+        </div>
+        <form action="{% url 'profile' %}" enctype="multipart/form-data" method="post"
+              class="form-horizontal">
+            {% csrf_token %}
+            <fieldset>
+
+
+                <!--                            Full name-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="Name (Full name)">Name (Full name)</label>
+                    <div class="col-md-5">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-user">
+                                </i>
+                            </div>
+                            <input id="Name (Full name)" required name="fullname" type="text"
+                                   value="{{from_profile.fullname}}"
+                                   placeholder="Name (Full name)" class="form-control input-md">
+                        </div>
+                    </div>
+                </div>
+                <!--                            User name-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="Name (Full name)">Username</label>
+                    <div class="col-md-5">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-user">
+                                </i>
+                            </div>
+                            <input id="Name (Full name)" name="username" value="{{ from_profile.username}}"
+                                   type="text"
+                                   placeholder="Username" required class="form-control input-md">
+                        </div>
+                    </div>
+                </div>
+
+                <!--                            Profile picture-->
+                <div class="form-group m-5">
+                    <label class="col-md-4 control-label" for="Upload photo">Upload a profile
+                        picture</label>
+                    <div class="col-md-5">
+
+                        <input type='file' value="{{from_profile.photo.url}}" name="profilephoto"
+                               onchange="readURL_pic(this);"/>
+
+                        <img src="{{from_profile.photo.url}}" id="profilepic"
+                             style="border-radius:100%; width:300px;height:300px"
+                             alt="Select an image" src="#"/>
+
+                    </div>
+                </div>
+
+
+                <!--                                                        DOB-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="Date Of Birth">DD/MM/YYYY</label>
+                    <div class="col-md-5">
+
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-birthday-cake"></i>
+
+                            </div>
+                            <input id="Date Of Birth" value="{{from_profile.dob}}" name="dob" required
+                                   type="text"
+                                   placeholder="Date Of Birth" class="form-control input-md">
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--                            Gender-->
+                <div class="form-group" style="">
+                    <label class="col-md-4 p-4 control-label" for="Gender">Gender</label>
+                    <div class="gender" style="font-size:18px; padding:12px;float:left; margin-bottom:-23px">
+                        <input name="gender" required type="radio" value="Male"
+                               style="width:32px;   margin-left:1px "
+                        {% if from_profile.gender == 'Male' %}
+                        selected
+                        {% endif %}
+                        >Male
+
+                        <input name="gender" required type="radio" value="Female"
+                               {% if from_profile.gender == 'Female' %}
+                        selected
+                        {% endif %}
+                        style="width:22px; margin-left:23px; margin-right:9px">Female
+                        <input name="gender" required type="radio" value="Custom"
+                               {% if from_profile.gender == 'Custom' %}
+                        selected
+                        {% endif %}
+                        style="width:22px; margin-left:23px; margin-right:9px">Custom
+                    </div>
+                </div>
+
+                <!--                            Marital status-->
+                <div class="form-group">
+                    <label class="col-md-4 p-4 control-label" for="Gender">Married?</label>
+                    <div class="gender" style="float:left; padding:12px;font-size:18px; margin-bottom:15px">
+                        <input name="marrystatus" checked required type="radio" value="Single"
+                               style="width:22px;  margin-right:9px ">Single
+                        <input name="marrystatus" required type="radio" value="Committed"
+                               style="width:22px; margin-left:23px; margin-right:9px">Committed
+                    </div>
+                </div>
+
+                <!--                            Address-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="Permanent Address">Permanent Address</label>
+                    <div class="col-md-5">
+
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-home" style="font-size:20px;"></i>
+                            </div>
+                            <input id="Temporary Address" required value="{{from_profile.address}}"
+                                   name="address" type="text"
+                                   placeholder="Permanent Address" class="form-control input-md">
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--                            Occupation-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="Primary Occupation">Primary
+                        Occupation</label>
+                    <div class="col-md-5">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-briefcase"></i>
+                            </div>
+                            <input id="Primary Occupation" required name="occupation" type="text"
+                                   value="{{from_profile.occupation}}"
+                                   placeholder="Your Occupation (Student, employee, etc..)"
+                                   class="form-control input-md">
+                        </div>
+                    </div>
+                </div>
+
+                <!--                            Phone number-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="Phone number ">Phone number </label>
+                    <div class="col-md-5">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-phone"></i>
+                            </div>
+                            <input id="Phone number " required name="number" type="text"
+                                   placeholder="Your Phone number " value="{{from_profile.number}}"
+                                   class="form-control input-md">
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--                            Email-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="Email Address">Email Address</label>
+                    <div class="col-md-5">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-envelope"></i>
+                            </div>
+                            <input id="Email Address" required name="email" type="text"
+                                   placeholder="Email Address" value="{{from_profile.email}}"
+                                   class="form-control input-md">
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--                            Languages known-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="Languages Known">Languages Known</label>
+                    <div class="col-md-5">
+                        <div class="checkbox">
+                            <label style="float:left" for="Languages Known-0">
+                                <input type="checkbox" name="languagesknown" id="Languages Known-0"
+                                       value="Nepali">
+                                Nepali
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label style="float:left" for="Languages Known-1">
+                                <input type="checkbox" name="languagesknown" id="Languages Known-1"
+                                       value="Hindi">
+                                Hindi
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label style="float:left" for="Languages Known-2">
+                                <input type="checkbox" checked name="languagesknown" id="Languages Known-2"
+                                       value="English">
+                                English
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label style="float:left" for="Languages Known-3">
+                                <input type="checkbox" name="languagesknown" id="Languages Known-3"
+                                       value="French">
+                                French
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--                            Bio-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="Overview (max 200 words)">Bio (max 300
+                        words)</label>
+                    <div class="col-md-5">
+                                    <textarea style="font-size:21px" placeholder="Describe yourself in 250 words."
+                                              class="form-control" rows="10"
+                                              id="Overview (max 200 words)" required
+                                              name="bio">{{from_profile.bio}}</textarea>
+                    </div>
+                </div>
+
+                <div>
+                    <button name="savechanges" class="btn btn-warning btn-block">Save Changes</button>
+                </div>
+
+
+                <div class="form-group text-center">
+
+                    <span class="">If you don't want to save changes, <a href="{% url 'homepage' %}">Click here</a> to go to home.</span>
+                </div>
+
+            </fieldset>
+        </form>
+
+    </div>
+    </div></section>
+
+<!-- jQuery Version 1.11.1 -->
+<script src="{% static 'js/jquery.js' %}"></script>
+
+
+<!--        To show the uploaded image instantly.-->
+<script>
+         function readURL_pic(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#profilepic')
+                        .attr('src', e.target.result)
+                        .width(300)
+                        .height(300);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+
+            }
+        }
+
+
+</script>
+<!-- Bootstrap Core JavaScript -->
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+
+{% endblock body %}

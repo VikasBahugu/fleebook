@@ -1,0 +1,141 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login V12</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/mains.css' %}">
+    <style>
+        body{
+        background:lightblue;
+        }
+
+    </style>
+</head>
+<body>
+<div class="limiter">
+    <div class="container-login100" style="background-image: url('{% static 'images/img-01.jpg' %}');">
+        <div class="wrap-login100 p-t-50 p-b-30">
+            <div class="login100-form-avatar">
+                <a href="{% url 'homepage' %}" class="txt1">
+                    <img src="{% static 'images/thumbs/about/about-500.jpg' %}" alt="AVATAR">
+                </a>
+            </div>
+            <div class="text-center w-full" style="margin-top:-50px">
+                <a href="{% url 'homepage' %}" class="txt1" style="font-size:27px">
+                    Home
+                </a>
+            </div>
+
+            <span class="login100-form-title p-t-20 p-b-45" style="font-size:28px">
+						fleebook.com
+					</span>
+            <form method="post" action="{% url 'signup' %}" class="login100-form validate-form">
+                {% csrf_token %}
+
+                <div class="wrap-input100 validate-input m-b-10">
+                    <input class="input100" type="text" required name="fname" style="font-size:28px"
+                           placeholder="First name*">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+							<i class="fa fa-user"></i>
+						</span>
+                </div>
+
+                <div class="wrap-input100 validate-input m-b-10">
+                    <input class="input100" type="text" required name="lname" style="font-size:28px"
+                           placeholder="Last name*">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+							<i class="fa fa-user"></i>
+						</span>
+                </div>
+
+                <div class="wrap-input100 validate-input m-b-10">
+                    <input class="input100" type="text" required name="username" style="font-size:28px"
+                           placeholder="Unique username*">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+							<i class="fa fa-user"></i>
+						</span>
+                </div>
+
+                <div class="wrap-input100 validate-input m-b-10">
+                    <input class="input100" type="number" required name="number" style="font-size:28px"
+                           placeholder="Number*">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+							<i class="fa fa-user"></i>
+						</span>
+                </div>
+
+
+                <div class="wrap-input100 validate-input m-b-10">
+                    <input class="input100" type="password" required name="pass1" style="font-size:28px"
+                           placeholder="Enter password*">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+							<i class="fa fa-user"></i>
+						</span>
+                </div>
+                <div class="wrap-input100 validate-input m-b-10">
+                    <input class="input100" type="password" required name="pass2" style="font-size:28px"
+                           placeholder="Confirm password*">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+							<i class="fa fa-user"></i>
+						</span>
+                </div>
+
+
+                <div style="color:white; padding:12px; margin-top:-12px; font-size:28px; margin-left:4px">Gender</div>
+                <div class="gender" style="font-size:23px;color:white; padding:12px">
+                            <input checked name="gender" required type="radio" value="Male"
+                                   style="width:22px;  margin-right:2px ">Male
+                            <input name="gender" required type="radio" value="Female"
+                                   style="width:22px; margin-right:2px">Female
+                            <input name="gender" required type="radio" value="Custom"
+                                   style="width:22px; margin-right:2px">Custom
+                        </div>
+
+
+                <div class="container-login100-form-btn p-t-10">
+                    <button class="login100-form-btn" style="font-size:30px">
+                        Signup for free.
+                    </button>
+                </div>
+            </form>
+
+            <div class="text-center w-full p-t-25 p-b-230">
+                <a href="#" class="txt1" style="font-size:26px">
+                    Forgot Username / Password?
+                </a>
+            </div>
+
+            <div class="text-center w-full" style="margin-top:-180px">
+                <a class="txt1" href="{% url 'login' %}" style="font-size:32px">
+                    Have an account?
+                    <i class="fa fa-long-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<script src={% static
+'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+	<script src={% static 'vendor/bootstrap/js/popper.js' %}"></script>
+<script src={% static
+'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+	<script src={% static 'vendor/select2/select2.min.js' %}"></script>
+<script src={% static
+'js/mains.js' %}"></script>
+
+</body>
+</html>
